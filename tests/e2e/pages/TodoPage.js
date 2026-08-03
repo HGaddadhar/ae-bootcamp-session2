@@ -11,11 +11,11 @@ class TodoPage {
 
   // Task list
   taskItems() {
-    return this.page.locator('[role="listitem"]');
+    return this.page.getByRole('listitem');
   }
 
   taskByName(name) {
-    return this.page.locator('[role="listitem"]').filter({ hasText: name });
+    return this.page.getByRole('listitem').filter({ hasText: name });
   }
 
   // Controls
@@ -41,7 +41,8 @@ class TodoPage {
   }
 
   dialogPrioritySelect() {
-    return this.page.getByLabel(/priority/i);
+    // Use data-testid to reliably target MUI v9 Select across DOM structure changes
+    return this.page.locator('[data-testid="priority-select"]').locator('[aria-haspopup="listbox"], [role="combobox"], .MuiSelect-select').first();
   }
 
   saveButton() {
@@ -62,7 +63,8 @@ class TodoPage {
   }
 
   completeCheckbox(taskName) {
-    return this.page.getByRole('checkbox', { name: new RegExp(`mark ${taskName} complete`, 'i') });
+    // Scope to the task's list item to avoid aria-label MUI version differences
+    return this.taskByName(taskName).getByRole('checkbox');
   }
 
   snackbar() {

@@ -87,7 +87,7 @@ function TaskDialog({ open, onClose, onSave, initial }) {
           onChange={setDueDate}
           slotProps={{ textField: { variant: 'outlined', fullWidth: true } }}
         />
-        <FormControl fullWidth variant="outlined">
+        <FormControl fullWidth variant="outlined" data-testid="priority-select">
           <InputLabel>Priority (optional)</InputLabel>
           <Select value={priority} onChange={e => setPriority(e.target.value)} label="Priority (optional)">
             <MenuItem value="">None</MenuItem>
@@ -289,7 +289,7 @@ function App() {
                         <Checkbox
                           checked={!!todo.completed}
                           onChange={() => handleToggleComplete(todo)}
-                          inputProps={{ 'aria-label': `mark ${todo.name} complete` }}
+                          slotProps={{ input: { 'aria-label': `mark ${todo.name} complete` } }}
                         />
                       </ListItemIcon>
                       <ListItemText
