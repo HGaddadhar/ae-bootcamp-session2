@@ -132,6 +132,7 @@ function App() {
   const showSnackbar = (message, severity = 'success') =>
     setSnackbar({ open: true, message, severity });
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { fetchTodos(); }, []);
 
   const fetchTodos = async () => {
